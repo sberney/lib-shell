@@ -1,0 +1,8 @@
+{
+  "name": "lib-shell",
+  "version": "1.0.0",
+  "description": "Write node CLI controller scripts more easierly",
+  "main": "index.js",
+  "author": "sberney",
+  "license": "MIT"
+}

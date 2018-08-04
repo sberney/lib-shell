@@ -4,7 +4,12 @@ const builder = new Builder('./', 'config.js');
 builder.buildStatic('index.js', 'dist/lib-shell.js', {
   format: 'cjs',
   minify: false,
-  globalName: 'LibShell'
+  externals: [
+    'path',
+    'child_process',
+    'process',
+    'os'
+  ]
 }).
 then(() => {
   console.log('Done.');

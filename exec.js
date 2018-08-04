@@ -5,6 +5,7 @@ const { exec: nodeExec } = require('child_process');
 const { pipeToStdFactory } = require('./vanilla-pipe');
 const { injectPrefixing } = require('./prefix');
 const { tryCall } = require('./try');
+const { xbufferTransform } = require('./xbuffer-transform');
 const { withExit } = require('./with-exit');
 const { withFailureBanner } = require('./with-failure-banner');
 const { withVerbose } = require('./with-verbose');
@@ -22,10 +23,21 @@ const withAddins = (opts={}, operation, addins=loadedAddins) => {
 
   const [ withAddin, ...rest ] = addins;
   return withAddins(opts, withAddin(opts, operation), rest);
-}
+};
+
+const loadedTransforms = [
+  xbufferTransform
+];
+const transformOpts = (opts={}, transforms=loadedTransforms) => {
+  if (!transforms || !transforms.length)
+    return opts;
+
+  const [ transform, ...rest ] = transforms;
+  return transformOpts(transform(opts), rest);
+};
 
 const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
-  const { workingDirectory, plain } = opts;
+  const { workingDirectory, plain } = transformOpts(opts);
 
   const currentDirectory = path.resolve('./');
   if (workingDirectory)

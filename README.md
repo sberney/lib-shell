@@ -195,9 +195,6 @@ I haven't thought of one yet, but this section needs at least two subheadings to
 
 # TODO
 
-* xbuffer
-* xbuffer interop maxBuffer
-* prefixedBanner
 * discuss colorization
 * copy examples into readme
 

@@ -7,9 +7,7 @@
   "license": "MIT",
   "scripts": {
     "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
-    "build": "yarn build-es6 && yarn build-es5",
-    "build-es6": "gulp build",
-    "build-es5": "gulp transpile"
+    "build": "gulp build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

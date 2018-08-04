@@ -18,9 +18,15 @@ gulp.task('compile', () => {
   })
 });
 
-gulp.task('build', ['compile'], () => {
+gulp.task('build-es6', ['compile'], () => {
   return gulp.src([
+    './src/COMMENT/BEGIN',
     './LICENSE',
+    './src/COMMENT/LODASH',
+    './node_modules/lodash/LICENSE',
+    './src/COMMENT/SYSTEMJS',
+    './node_modules/systemjs/LICENSE',
+    './src/COMMENT/END',
     './build/lib-shell.js'
   ]).
   pipe(concat('lib-shell.js')).
@@ -30,11 +36,22 @@ gulp.task('build', ['compile'], () => {
 gulp.task('transpiled-compile', ['compile'], () =>
    exec('yarn babel'));
 
-gulp.task('transpile', ['transpiled-compile'], () => {
+gulp.task('build-es5', ['transpiled-compile'], () => {
   return gulp.src([
+    './src/COMMENT/BEGIN',
     './LICENSE',
+    './src/COMMENT/LODASH',
+    './node_modules/lodash/LICENSE',
+    './src/COMMENT/SYSTEMJS',
+    './node_modules/systemjs/LICENSE',
+    './src/COMMENT/END',
     './build/lib-shell.es5.js'
   ]).
   pipe(concat('lib-shell.es5.js')).
   pipe(gulp.dest('dist/'));
 });
+
+gulp.task('build', [
+  'build-es6',
+  'build-es5'
+]);

@@ -206,6 +206,15 @@ Regardless, the two options are incompatible with each other, and if you try to 
 
 I haven't thought of one yet, but this section needs at least two subheadings to be a real section.
 
+# TODO
+
+* info
+* noTrailingNewline
+* xbuffer
+* xbuffer interop maxBuffer
+* discuss colorization
+* copy examples into readme
+
 
 # Options
 

@@ -1,13 +1,32 @@
 {
   "name": "lib-shell",
   "version": "1.0.0",
-  "description": "Write node CLI controller scripts more easierly",
+  "description": "Use the command line from JavaScript. Write node-based build scripts for your project more easierly",
   "main": "index.js",
-  "author": "sberney",
+  "author": {
+    "name": "Samuel Berney",
+    "url": "http://samuelberney.com/"
+  },
+  "homepage": "https://github.com/sberney/lib-shell",
+  "bugs": "https://github.com/sberney/lib-shell/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sberney/lib-shell"
+  },
   "license": "MIT",
-  "scripts": {
-    "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
-    "build": "gulp build"
+  "keywords": [
+    "cli",
+    "command",
+    "build",
+    "automation",
+    "promise",
+    "backend",
+    "node",
+    "es6",
+    "standalone"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -15,7 +34,10 @@
     "babel-preset-es2015": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "lodash": "^4.17.10",
     "systemjs-builder": "^0.16.13"
+  },
+  "scripts": {
+    "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
+    "build": "gulp build"
   }
 }

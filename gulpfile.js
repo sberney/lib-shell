@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
+const { exec } = require('./index');
 
 const Builder = require('systemjs-builder');
 
@@ -26,20 +27,8 @@ gulp.task('build', ['compile'], () => {
   pipe(gulp.dest('dist/'));
 });
 
-gulp.task('transpiled-compile', () => {
-  const builder = new Builder('./', 'jspm.config.js');
-  builder.loadConfig('./config.js');
-  return builder.buildStatic('index.js', 'build/lib-shell.es5.js', {
-    format: 'cjs',
-    minify: false,
-    externals: [
-      'path',
-      'child_process',
-      'process',
-      'os'
-    ]
-  })
-});
+gulp.task('transpiled-compile', ['compile'], () =>
+   exec('yarn babel'));
 
 gulp.task('transpile', ['transpiled-compile'], () => {
   return gulp.src([

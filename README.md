@@ -29,7 +29,7 @@ const build = () =>
 ```
 
 
-# Examples
+## Examples
 
 ### Examples: 1 to n
 
@@ -127,7 +127,7 @@ const sequence = () =>
 // [four-b] shell exited, code 0.
 ```
 
-# Exit codes, errors, and workflow
+## Exit codes, errors, and workflow
 
 Perhaps you need more than just a catch handler at the end of a promise chain. Perhaps you need the exit code. Or some reason, any reason, why your script didn't work.
 
@@ -158,7 +158,7 @@ catch(err => {
 // code was 1; typeof number
 ```
 
-## Signalling an Exit Code
+### Signalling an Exit Code
 
 If the build script you're writing plugs into anything at all, you might want your build script to return a specific exit code at a specific time.
 
@@ -182,7 +182,7 @@ exec('exit 9', {
 ```
 If you set `exit: true`, your script is over. We just call `process.exit()` for you at the appropriate time.
 
-# Exit banner
+## Exit banner
 
 Say you want to provide a helpful message when your build script fails, like this:
 
@@ -208,9 +208,31 @@ If that doesn't work, email tech@ITsupport.utopiacorp.net. `
 //
 ```
 
-# Tricks
+## Options
 
-## `child_process.exec` opts; incl. `maxBuffer`
+### All Options
+
+Options           | Default    | Note
+----------------- |------------|--------------
+workingDirectory  | cwd        | Directory in which to run the command
+prefix            | shell      | Prefix output with bracketed [custom]
+plain             | false      |
+info              | true       | Addend status code
+xbuffer           | 1          | Incompatible with `maxBuffer`
+exit              | false      | Very terminal
+failureBanner     | undefined  | Add frustrating message for users, denying culpability
+prefixedBanner    | false      | Change the way failureBanner prints. Adds prefix.
+verbose           | false      | Always [... repeatedly] console.log the error message
+
+### Even More Options
+
+Anything node's exec supports. Examples:
+
+Options           | Default      | Note
+----------------- |--------------|--------------
+maxBuffer         | `200 * 1024` | Incompatible with `xbuffer`
+
+#### User Story
 
 For a long running process, one that dumps *a lot* of console output, node's buffer size is **way** too small. The default buffer size is `200 * 1024` **bytes**. With `lib-shell`, **you can** change this to whatever you want, say `5x`:
 
@@ -232,37 +254,8 @@ exec('echo "hello world"', { xbuffer: 5 });
 
 Regardless, the two options are incompatible with each other, and if you try to use them together, it will throw an error.
 
-## Another Trick
 
-I haven't thought of one yet, but this section needs at least two subheadings to be a real section.
-
-
-# Options
-
-### All `lib-shell` Options
-
-Options           | Default    | Note
------------------ |------------|--------------
-workingDirectory  | cwd        | Directory in which to run the command
-prefix            | shell      | Prefix output with bracketed [custom]
-plain             | false      |
-info              | true       | Addend status code
-xbuffer           | 1          | Incompatible with `maxBuffer`
-exit              | false      | Very terminal
-failureBanner     | undefined  | Add frustrating message for users, denying culpability
-prefixedBanner    | false      | Change the way failureBanner prints. Adds prefix.
-verbose           | false      | Always [... repeatedly] console.log the error message
-
-### Extended Options
-
-Anything node's exec supports. Examples:
-
-Options           | Default      | Note
------------------ |--------------|--------------
-maxBuffer         | `200 * 1024` | Incompatible with `xbuffer`
-
-
-# Installation and Usage
+## Installation and Usage
 
 ### Latest Node
 
@@ -287,17 +280,17 @@ npm install lib-shell
 
 ```js
 var shell = require('lib-shell/dist');
-shell.exec('echo "hello word!"');
+shell.exec('echo "hello world!"');
 ```
 
-### None of the above, copy and paste
+### Copy and paste
 
 If you have a project where it is too inconvenient to install a utility like `lib-shell` before you actually start the build itself, you can use the **standalone**, pre-built file `lib-shell/dist.js`.
 
 It's commited to the git repo, so you can just download it from here. Or you can go `npm i -g lib-shell` and grab it from there.
 
 
-# Build
+## Build
 
 ```bash
 git clone git@github.com:sberney/lib-shell.git
@@ -314,3 +307,7 @@ Puts the output in `dist/`.
 * discuss colorization
   * Basically, things you run auto-detect their environment. Often the program you're running has a `--ansi` option or `--color` or something like that. If it doesn't, it's not super clear what to do about it.
   * `child_process.spawn` has a `stdio` option that `exec` does not. Perhaps we should look into that.
+
+## License
+
+MIT

@@ -4,10 +4,26 @@ const process = require('process');
 const { exec: nodeExec } = require('child_process');
 const { injectPrefixing, makePrefix } = require('./prefix');
 const { tryCall } = require('./try');
+const { withExit } = require('./with-exit');
+const { withFailureBanner } = require('./with-failure-banner');
+const { withVerbose } = require('./with-verbose');
 
 const str = tryCall('toString');
 
-const exec = (command, opts={}) => new Promise((resolve, reject) => {
+const loadedAddins = [
+  withVerbose,
+  withFailureBanner,
+  withExit
+];
+const withAddins = (opts={}, operation, addins=loadedAddins) => {
+  if (!addins || !addins.length)
+    return operation;
+
+  const [ withAddin, ...rest ] = addins;
+  return withAddins(opts, withAddin(opts, operation), rest);
+}
+
+const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
   const { workingDirectory, plain } = opts;
 
   const currentDirectory = path.resolve('./');
@@ -55,7 +71,7 @@ const exec = (command, opts={}) => new Promise((resolve, reject) => {
       resolve();
     }
   });
-});
+}));
 
 const createExec = opts => (command, more) =>
   exec(command, Object.assign({}, opts, more));

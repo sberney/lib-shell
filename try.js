@@ -1,6 +1,6 @@
 const tryFn = (fn, default_) => {
   try {
-    fn();
+    return fn();
   }
   catch (ignore) {
     return default_;

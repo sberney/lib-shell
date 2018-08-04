@@ -217,6 +217,8 @@ noTrailingNewline | false      | Why would you use this?
 xbuffer           | 1          | Incompatible with `maxBuffer`
 exit              | false      | Very terminal
 failureBanner     | undefined  | Add frustrating message for users, denying culpability
+prefixBanner      | false      | Change the way failureBanner prints. Adds prefix.
+verbose           | false      | Always [... repeatedly] console.log the error message
 
 ## Extended Options
 

@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "sberney",
   "license": "MIT",
+  "scripts": {
+    "build": "node build.js"
+  },
   "devDependencies": {
     "@webpack-cli/init": "^0.1.0",
     "lodash": "^4.17.10",

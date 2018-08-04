@@ -1,7 +1,7 @@
 const once = require('lodash/once');
 const { EOL } = require('os');
 
-export const prefixedStream = prefix => (sourceStream, destStream) => {
+const prefixedStream = prefix => (sourceStream, destStream) => {
   const prepend = once(() =>
     destStream.write(prefix));
   const replaceEol = data =>
@@ -13,13 +13,13 @@ export const prefixedStream = prefix => (sourceStream, destStream) => {
   });
 };
 
-export const makePrefix = (opts={}) => {
+const makePrefix = (opts={}) => {
   const { prefix } = opts;
   const defaultPrefix = 'shell';
   return `[${prefix || defaultPrefix}]`;
 };
 
-export const injectPrefixing = prefix => subprocess => {
+const injectPrefixing = prefix => subprocess => {
   const pipe = prefixedStream(prefix);
   pipe(subprocess.stdout, process.stdout);
   pipe(subprocess.stderr, process.stderr);
@@ -29,19 +29,12 @@ export const injectPrefixing = prefix => subprocess => {
   subprocess.on('exit', (code, signal) => {
     if (code === null) {
       process.stdout.write(formatInfo(
-        `process killed via signal ${signal.toString()}.`));
+        `shell killed via signal ${signal.toString()}.`));
     } else {
       process.stdout.write(formatInfo(
-        `process exited, code ${code.toString()}.`));
+        `shell exited, code ${code.toString()}.`));
     }
   });
 };
 
-const makeStreamNice = (subprocess, opts={}) => {
-  const pipeToStd = injectPrefixing(makePrefix(opts));
-  pipeToStd(subprocess);
-
-  // exec
-
-  // return a promise indicating whether the command succeeded
-}
+module.exports = { prefixedStream, makePrefix, injectPrefixing };

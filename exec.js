@@ -1,4 +1,5 @@
 const omit = require('lodash/omit');
+const path = require('path');
 const process = require('process');
 const { exec: nodeExec } = require('child_process');
 const { injectPrefixing, makePrefix } = require('./prefix');
@@ -7,7 +8,7 @@ const { tryCall } = require('./try');
 const str = tryCall('toString');
 
 const exec = (command, opts={}) => new Promise((resolve, reject) => {
-  const { workingDirectory, noprefix } = opts;
+  const { workingDirectory, plain } = opts;
 
   const currentDirectory = path.resolve('./');
   if (workingDirectory)
@@ -28,11 +29,12 @@ const exec = (command, opts={}) => new Promise((resolve, reject) => {
   }, omit(opts, [
     'workingDirectory',
     'prefix',
-    'noprefix'
+    'plain'
   ])));
 
-  if (noprefix) {
-    throw new Error('noprefix is not yet implemented'); // todo
+  if (plain) {
+    child.stdout.on('data', data => process.stdout.write(data));
+    child.stderr.on('data', data => process.stderr.write(data));
   } else {
     const pipeToStd = injectPrefixing(makePrefix(opts));
     pipeToStd(child);
@@ -55,4 +57,7 @@ const exec = (command, opts={}) => new Promise((resolve, reject) => {
   });
 });
 
-module.exports = { exec };
+const createExec = opts => (command, more) =>
+  exec(command, Object.assign({}, opts, more));
+
+module.exports = { exec, createExec };

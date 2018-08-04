@@ -16,7 +16,7 @@ const prefixedStream = prefix => (sourceStream, destStream) => {
 const makePrefix = (opts={}) => {
   const { prefix } = opts;
   const defaultPrefix = 'shell';
-  return `[${prefix || defaultPrefix}]`;
+  return `[${prefix || defaultPrefix}] `;
 };
 
 const injectPrefixing = prefix => subprocess => {

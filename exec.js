@@ -1,17 +1,8 @@
 const process = require('process');
 const { exec: nodeExec } = require('child_process');
 const { injectPrefixing, makePrefix } = require('./prefix');
+const { tryCall } = require('./try');
 
-const tryFn = (fn, default_) => {
-  try {
-    fn();
-  }
-  catch (ignore) {
-    return default_;
-  }
-};
-const tryCall = method => obj =>
-  tryFn(() => obj[method](), obj);
 const str = tryCall('toString');
 
 const exec = (command, opts={}) => new Promise((resolve, reject) => {

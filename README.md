@@ -279,7 +279,7 @@ npm install lib-shell
 ```
 
 ```js
-var shell = require('lib-shell/dist/lib-shell.es5.js'); // whoops, not implemented yet
+var shell = require('lib-shell/dist/lib-shell.es5.js');
 shell.exec('echo "hello world!"');
 ```
 

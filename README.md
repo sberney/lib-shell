@@ -50,27 +50,13 @@ exec('echo "hello world!"', { plain: true, info: false });
 //
 ```
 
-You really don't like that trailing newline, do you? That's ok, it's because you're naïve. But here you go:
-
-```js
-const { exec } = require('lib-shell');
-exec('echo "hello world!"', {
-  plain: true,
-  info: false,
-  noTrailingNewline: true
-});
-
-// "hello world!"
-```
-
 Are you tired of writing all that stuff?
 
 ```js
 const { createExec } = require('lib-shell');
 const exec = createExec({
   plain: true,
-  info: false,
-  noTrailingNewline: true
+  info: false
 });
 
 // now there is no need to!
@@ -78,6 +64,7 @@ const exec = createExec({
 exec('echo "hello world!"' /*, { info: true } */);
 
 // "hello world!"
+//
 ```
 
 # Complicated sequencing
@@ -208,10 +195,9 @@ I haven't thought of one yet, but this section needs at least two subheadings to
 
 # TODO
 
-* info
-* noTrailingNewline
 * xbuffer
 * xbuffer interop maxBuffer
+* prefixedBanner
 * discuss colorization
 * copy examples into readme
 
@@ -220,13 +206,14 @@ I haven't thought of one yet, but this section needs at least two subheadings to
 
 Options           | Default    | Note
 ----------------- |------------|--------------
+workingDirectory  | cwd        | Directory in which to run the command
+prefix            | shell      | Prefix output with bracketed [custom]
 plain             | false      |
-info              | true       |
-noTrailingNewline | false      | Why would you use this?
+info              | true       | Addend status code
 xbuffer           | 1          | Incompatible with `maxBuffer`
 exit              | false      | Very terminal
 failureBanner     | undefined  | Add frustrating message for users, denying culpability
-prefixBanner      | false      | Change the way failureBanner prints. Adds prefix.
+prefixedBanner    | false      | Change the way failureBanner prints. Adds prefix.
 verbose           | false      | Always [... repeatedly] console.log the error message
 
 ## Extended Options

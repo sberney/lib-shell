@@ -1,8 +1,7 @@
-const { exec } = require('lib-shell');
-exec('echo "hello world!"', {
-  plain: true,
-  info: false,
-  noTrailingNewline: true
-});
-
-// "hello world!"
+//const { exec } = require('../index');
+//exec('echo "hello world!"', {
+//  plain: true,
+//  info: false
+//});
+//
+//// "hello world!"

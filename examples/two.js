@@ -1,4 +1,4 @@
-const { exec } = require('lib-shell');
+const { exec } = require('../index');
 exec('echo "hello world!"', { plain: true });
 
 // "hello world!"

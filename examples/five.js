@@ -1,8 +1,7 @@
-const { createExec } = require('lib-shell');
+const { createExec } = require('../index');
 const exec = createExec({
   plain: true,
-  info: false,
-  noTrailingNewline: true
+  info: false
 });
 
 // now there is no need to!
@@ -10,3 +9,4 @@ const exec = createExec({
 exec('echo "hello world!"' /*, { info: true } */);
 
 // "hello world!"
+//

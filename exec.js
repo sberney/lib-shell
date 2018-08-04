@@ -2,7 +2,8 @@ const omit = require('lodash/omit');
 const path = require('path');
 const process = require('process');
 const { exec: nodeExec } = require('child_process');
-const { injectPrefixing, makePrefix } = require('./prefix');
+const { pipeToStdFactory } = require('./vanilla-pipe');
+const { injectPrefixing } = require('./prefix');
 const { tryCall } = require('./try');
 const { withExit } = require('./with-exit');
 const { withFailureBanner } = require('./with-failure-banner');
@@ -45,14 +46,21 @@ const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject
   }, omit(opts, [
     'workingDirectory',
     'prefix',
-    'plain'
+    'plain',
+    'info',
+    'noTrailingNewline',
+    'xbuffer',
+    'exit',
+    'failureBanner',
+    'prefixedBanner',
+    'verbose'
   ])));
 
   if (plain) {
-    child.stdout.on('data', data => process.stdout.write(data));
-    child.stderr.on('data', data => process.stderr.write(data));
+    const pipeToStd = pipeToStdFactory(opts);
+    pipeToStd(child);
   } else {
-    const pipeToStd = injectPrefixing(makePrefix(opts));
+    const pipeToStd = injectPrefixing(opts);
     pipeToStd(child);
   }
 

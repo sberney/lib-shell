@@ -1,3 +1,4 @@
+const { infoAddender } = require('./info-addender');
 const once = require('lodash/once');
 const { EOL } = require('os');
 
@@ -29,22 +30,16 @@ const makePrefix = (opts={}) => {
   return `[${prefix || defaultPrefix}] `;
 };
 
-const injectPrefixing = prefix => subprocess => {
+const injectPrefixing = (opts={}) => child => {
+  const { info } = opts;
+  const prefix = makePrefix(opts);
   const pipe = prefixedStream(prefix);
-  pipe(subprocess.stdout, process.stdout);
-  pipe(subprocess.stderr, process.stderr);
-
   const formatInfo = message => `${EOL}${prefix}${message}${EOL}`;
+  const appendInfo = infoAddender(opts, formatInfo);
 
-  subprocess.on('exit', (code, signal) => {
-    if (code === null) {
-      process.stdout.write(formatInfo(
-        `shell killed via signal ${signal.toString()}.`));
-    } else {
-      process.stdout.write(formatInfo(
-        `shell exited, code ${code.toString()}.`));
-    }
-  });
+  pipe(child.stdout, process.stdout);
+  pipe(child.stderr, process.stderr);
+  appendInfo(child);
 };
 
 module.exports = { prefixedStream, makePrefix, injectPrefixing, formatter };

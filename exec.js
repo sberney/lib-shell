@@ -1,3 +1,4 @@
+const omit = require('lodash/omit');
 const process = require('process');
 const { exec: nodeExec } = require('child_process');
 const { injectPrefixing, makePrefix } = require('./prefix');
@@ -22,9 +23,13 @@ const exec = (command, opts={}) => new Promise((resolve, reject) => {
     }
   };
 
-  const child = nodeExec(command, {
+  const child = nodeExec(command, Object.assign({
     shell: true
-  });
+  }, omit(opts, [
+    'workingDirectory',
+    'prefix',
+    'noprefix'
+  ])));
 
   if (noprefix) {
     throw new Error('noprefix is not yet implemented'); // todo

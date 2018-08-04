@@ -32,8 +32,16 @@ const transformOpts = (opts={}, transforms=loadedTransforms) => {
   if (!transforms || !transforms.length)
     return opts;
 
+  const { exit } = opts;
   const [ transform, ...rest ] = transforms;
-  return transformOpts(transform(opts), rest);
+  try {
+    return transformOpts(transform(opts), rest);
+  } catch (error) {
+    if (exit) {
+      console.error(error); // otherwise it gets swallowed
+    }
+    throw error;
+  }
 };
 
 const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {

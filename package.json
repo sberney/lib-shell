@@ -6,21 +6,14 @@
   "author": "sberney",
   "license": "MIT",
   "scripts": {
-    "build": "gulp build",
-    "transpile": "gulp transpile"
+    "build": "yarn build-es6 && yarn build-es5",
+    "build-es6": "gulp build",
+    "build-es5": "gulp transpile"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "jspm": "^0.16.53",
     "lodash": "^4.17.10",
     "systemjs-builder": "^0.16.13"
-  },
-  "jspm": {
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
-    }
   }
 }

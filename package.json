@@ -1,6 +1,6 @@
 {
   "name": "lib-shell",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Use the command line from JavaScript. Write node-based build scripts for your project more easierly",
   "main": "index.js",
   "author": {

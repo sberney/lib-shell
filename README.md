@@ -188,7 +188,7 @@ Say you want to provide a helpful message when your build script fails, like thi
 
 > Build failed. Try checking out a fresh copy and building it from scratch. If that doesn't work, email tech@ITsupport.utopiacorp.net.
 
-These kinds of messages add a lot of stylishness and professionalism to the your abysmal failure!
+These kinds of messages add a lot of stylishness and professionalism to your abysmal failure!
 
 ```js
 const { exec } = require('lib-shell');
@@ -279,13 +279,13 @@ npm install lib-shell
 ```
 
 ```js
-var shell = require('lib-shell/dist');
+var shell = require('lib-shell/dist/lib-shell.es5.js'); // whoops, not implemented yet
 shell.exec('echo "hello world!"');
 ```
 
 ### Copy and paste
 
-If you have a project where it is too inconvenient to install a utility like `lib-shell` before you actually start the build itself, you can use the **standalone**, pre-built file `lib-shell/dist.js`.
+If you have a project where it is too inconvenient to install a utility like `lib-shell` before you actually start the build itself, you can use the **standalone**, pre-built file `dist/lib-shell.js`. It's not transpiled to es5, so you still need a modern `node` installation. If you want the transpiled one, grab that copy instead.
 
 It's commited to the git repo, so you can just download it from here. Or you can go `npm i -g lib-shell` and grab it from there.
 

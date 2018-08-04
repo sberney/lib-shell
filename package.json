@@ -9,6 +9,8 @@
     "build": "node build.js"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "lodash": "^4.17.10",
     "systemjs-builder": "^0.16.13"
   }

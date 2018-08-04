@@ -4,5 +4,8 @@
   "description": "Write node CLI controller scripts more easierly",
   "main": "index.js",
   "author": "sberney",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "lodash": "^4.17.10"
+  }
 }

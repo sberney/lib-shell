@@ -149,7 +149,8 @@ exec('exit 9', {
   exit: true
 });
 
-// todo
+// [shell] shell exited, code 9.
+//
 ```
 
 # Exit banner, outro
@@ -163,7 +164,10 @@ exec('exit -1', {
   failureBanner: `Build failed. Try checking out a fresh copy and building it from scratch. If that doesn't work, email tech@ITsupport.utopiacorp.net.`
 });
 
-// todo
+// [shell] shell exited, code 4294967295.
+//
+// Build failed. Try checking out a fresh copy and building it from scratch. If that doesn't work, email tech@ITsupport.utopiacorp.net.
+//
 ```
 
 # Tricks

@@ -1,5 +1,5 @@
 const tools = [
-  './exec.js'
+  './src/exec.js'
 ];
 
 module.exports = Object.assign({}, ...(tools.map(require)));

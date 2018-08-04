@@ -6,6 +6,8 @@
   "author": "sberney",
   "license": "MIT",
   "devDependencies": {
-    "lodash": "^4.17.10"
+    "@webpack-cli/init": "^0.1.0",
+    "lodash": "^4.17.10",
+    "webpack": "^4.16.4"
   }
 }

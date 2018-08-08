@@ -11,7 +11,7 @@ const withStdio = (opts={}) => {
     stderr = stdio.stderr;
   }
 
-  console.log(stdin, stdout, stderr);
+  //console.log(stdin, stdout, stderr);
   return { stdin, stdout, stderr };
 };
 

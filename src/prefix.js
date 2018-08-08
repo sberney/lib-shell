@@ -32,7 +32,7 @@ const makePrefix = (opts={}) => {
 };
 
 const injectPrefixing = (opts={}) => child => {
-  const { stdout, stderr, stdin } = withStdio(opts);
+  const { stdout, stderr } = withStdio(opts);
 
   const { info } = opts;
   const prefix = makePrefix(opts);
@@ -40,8 +40,8 @@ const injectPrefixing = (opts={}) => child => {
   const formatInfo = message => `${EOL}${prefix}${message}${EOL}`;
   const appendInfo = infoAddender(opts, formatInfo);
 
-  pipe(child.stdout, process.stdout);
-  pipe(child.stderr, process.stderr);
+  pipe(child.stdout, stdout);
+  pipe(child.stderr, stderr);
   appendInfo(child);
 };
 

@@ -1,8 +1,11 @@
+const process = require('process');
 
 const withStdio = (opts={}) => {
   const { stdio } = opts;
 
-  let stdin, stdout, stderr;
+  let stdin  = process.stdin,
+      stdout = process.stdout,
+      stderr = process.stderr;
   if (stdio instanceof Array) {
     [ stdin, stdout, stderr ] = stdio;
   } else if (typeof stdio === 'object') {

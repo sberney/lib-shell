@@ -1,4 +1,6 @@
 const { expect } = require('chai');
+const MemoryStream = require('memorystream');
+const concat = require('async-concat-stream');
 const { exec } = require('../index');
 const { withStdio } = require('../src/with-stdio.js');
 
@@ -16,6 +18,24 @@ describe('stdio', () => {
     });
 
     expect(one).to.deep.equal(two);
+  });
+});
+
+describe('stdio mock streamtest', () => {
+  it('does what I want', async () => {
+    const stream = concat();
+
+    await exec('echo "hello world"', {
+      stdio: {
+        //stdout: process.stdout,
+        stdout: stream,
+        stderr: process.stderr,
+        stdin: process.stdin
+      },
+    });
+    stream.end();
+
+    expect(await stream.promise).to.match(/hello world/);
   });
 });
 

@@ -1,5 +1,6 @@
 const { infoAddender } = require('./info-addender');
 const { EOL } = require('os');
+const { withStdio } = require('./with-stdio');
 
 const pipeToStdFactory = (opts={}) => child => {
   const formatInfo = message => `${EOL}${message}${EOL}`;

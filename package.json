@@ -47,6 +47,9 @@
     "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
     "build": "gulp build",
     "lint": "eslint src",
-    "test": "mocha"
+    "lint-fix": "eslint src --fix",
+    "test": "mocha",
+    "ci": "yarn install && yarn cia",
+    "cia": "yarn lint && yarn build && yarn test"
   }
 }

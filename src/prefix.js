@@ -1,6 +1,8 @@
-const { infoAddender } = require('./info-addender');
-const once = require('lodash/once');
 const { EOL } = require('os');
+
+const once = require('lodash/once');
+
+const { infoAddender } = require('./info-addender');
 const { withStdio } = require('./with-stdio');
 
 
@@ -34,7 +36,7 @@ const makePrefix = (opts={}) => {
 const injectPrefixing = (opts={}) => child => {
   const { stdout, stderr } = withStdio(opts);
 
-  const { info } = opts;
+  //const { info } = opts;  // todo: remove?
   const prefix = makePrefix(opts);
   const pipe = prefixedStream(prefix);
   const formatInfo = message => `${EOL}${prefix}${message}${EOL}`;

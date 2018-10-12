@@ -1,7 +1,9 @@
-const omit = require('lodash/omit');
 const path = require('path');
 const process = require('process');
 const { exec: nodeExec } = require('child_process');
+
+const omit = require('lodash/omit');
+
 const { pipeToStdFactory } = require('./vanilla-pipe');
 const { injectPrefixing } = require('./prefix');
 const { tryCall } = require('./try');
@@ -90,10 +92,10 @@ const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject
     goBack();
 
     if (code) {
-      let error = new Error(`failed with code: ${str(code)}`);
+      const error = new Error(`failed with code: ${str(code)}`);
       reject(Object.assign(error, { code }));
     } else if (signal) {
-      let error = new Error(`failed with signal: ${str(signal)}`);
+      const error = new Error(`failed with signal: ${str(signal)}`);
       reject(Object.assign(error, { signal }));
     } else {
       resolve();

@@ -1,4 +1,5 @@
 const { EOL } = require('os');
+
 const { makePrefix, formatter } = require('./prefix');
 const { createConsole } = require('./create-console');
 

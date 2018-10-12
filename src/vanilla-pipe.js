@@ -1,5 +1,6 @@
-const { infoAddender } = require('./info-addender');
 const { EOL } = require('os');
+
+const { infoAddender } = require('./info-addender');
 const { withStdio } = require('./with-stdio');
 
 const pipeToStdFactory = (opts={}) => child => {

@@ -1,4 +1,5 @@
 const { EOL } = require('os');
+
 const { withStdio } = require('./with-stdio');
 
 const createConsole = (opts={}) => {

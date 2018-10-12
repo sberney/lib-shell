@@ -7,7 +7,7 @@ const { withStdio } = require('./with-stdio');
 const replaceEol = prefix => data =>
   data.replace(/\r\n|\r|\n/g, `${EOL}${prefix}`);
 
-const formatter = prefix => {
+const formatter = (prefix='') => {
   const replaceEol2 = replaceEol(prefix);
   return str => 
     `${prefix}${replaceEol2(str)}`;

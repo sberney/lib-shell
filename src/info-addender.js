@@ -1,15 +1,17 @@
 const { EOL } = require('os');
+const { withStdio } = require('./with-stdio');
 
 const infoAddender = (opts={}, formatInfo) => child => {
+  const { stdout } = withStdio(opts);
   const { info } = opts;
 
   if (info !== false) {
     child.on('exit', (code, signal) => {
       if (code === null) {
-        process.stdout.write(formatInfo(
+        stdout.write(formatInfo(
           `shell killed via signal ${signal.toString()}.`));
       } else {
-        process.stdout.write(formatInfo(
+        stdout.write(formatInfo(
           `shell exited, code ${code.toString()}.`));
       }
     });

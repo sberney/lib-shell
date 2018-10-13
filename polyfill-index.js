@@ -1,8 +1,4 @@
 require('@babel/polyfill');
-const register = require('@babel/register');
-
-register({
-  ignore: []
-})
+require('./custom-babel-register');
 
 module.exports = require('./src/exec');

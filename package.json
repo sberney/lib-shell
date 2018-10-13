@@ -55,7 +55,7 @@
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "test2": "mocha --require @babel/register",
-    "test": "mocha --require babel-register-node-modules.js",
+    "test": "mocha --require custom-babel-register.js",
     "ci": "yarn install && yarn cia",
     "cia": "yarn lint && yarn build && yarn test"
   }

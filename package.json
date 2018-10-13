@@ -29,6 +29,8 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "async-concat-stream": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -41,10 +43,13 @@
     "gulp-concat": "^2.6.1",
     "memorystream": "^0.3.1",
     "mocha": "^5.2.0",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
     "systemjs-builder": "^0.16.13"
   },
   "scripts": {
     "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
+    "rollup": "rollup -c --config",
     "build": "gulp build",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",

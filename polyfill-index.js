@@ -1,2 +1,8 @@
-import '@babel/polyfill';
-export * from './src/exec';
+require('@babel/polyfill');
+const register = require('@babel/register');
+
+register({
+  ignore: []
+})
+
+module.exports = require('./src/exec');

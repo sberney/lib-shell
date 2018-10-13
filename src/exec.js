@@ -2,7 +2,7 @@ import path from 'path';
 import process from 'process';
 import { exec as nodeExec } from 'child_process';
 
-import omit from 'lodash/omit';
+import omit from 'lodash-es/omit';
 
 import { pipeToStdFactory } from './vanilla-pipe';
 import { injectPrefixing } from './prefix';

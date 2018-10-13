@@ -1,6 +1,6 @@
 import { EOL } from 'os';
 
-import once from 'lodash/once';
+import once from 'lodash-es/once';
 
 import { infoAddender } from './info-addender';
 import { withStdio } from './with-stdio';

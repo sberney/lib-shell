@@ -2,36 +2,38 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
+const plugins = [
+  resolve(),
+  commonjs()
+];
+
 export default [
   {
     input: 'src/exec.js',
     output: {
       file: 'build/lib-shell.js',
       format: 'es',
-      //sourcemap: true
-    }
+    },
+    plugins
   },
   {
     input: 'src/exec.js',
     output: {
       file: 'build/lib-shell.cjs.js',
       format: 'cjs',
-      //sourcemap: true
-    }
+    },
+    plugins
   },
   {
     input: 'src/exec.js',
     output: {
       file: 'build/lib-shell.es5.js',
       format: 'cjs',
-      //sourcemap: true
     },
-    plugins: [
-      resolve(),
-      commonjs(),
+    plugins: plugins.concat([
       babel({
-        exclude: 'node_modules/**'
+        //exclude: 'node_modules/**'
       })
-    ]
+    ])
   }
 ]

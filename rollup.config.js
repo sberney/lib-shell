@@ -1,4 +1,6 @@
 import babel from 'rollup-plugin-babel';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 
 export default [
   {
@@ -16,6 +18,12 @@ export default [
       format: 'es',
       sourcemap: true
     },
-    plugins: [ babel() ]
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        exclude: 'node_modules/**'
+      })
+    ]
   }
 ]

@@ -1,6 +1,6 @@
-const { withStdio } = require('./with-stdio');
+import { withStdio } from './with-stdio';
 
-const infoAddender = (opts={}, formatInfo) => child => {
+export const infoAddender = (opts={}, formatInfo) => child => {
   const { stdout } = withStdio(opts);
   const { info } = opts;
 
@@ -17,5 +17,3 @@ const infoAddender = (opts={}, formatInfo) => child => {
   }
 
 };
-
-module.exports = { infoAddender };

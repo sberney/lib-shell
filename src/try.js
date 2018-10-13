@@ -1,4 +1,4 @@
-const tryFn = (fn, default_) => {
+export const tryFn = (fn, default_) => {
   try {
     return fn();
   }
@@ -6,7 +6,5 @@ const tryFn = (fn, default_) => {
     return default_;
   }
 };
-const tryCall = method => obj =>
+export const tryCall = method => obj =>
   tryFn(() => obj[method](), obj);
-
-module.exports = { tryFn, tryCall };

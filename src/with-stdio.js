@@ -1,6 +1,6 @@
-const process = require('process');
+import process from 'process';
 
-const withStdio = (opts={}) => {
+export const withStdio = (opts={}) => {
   const { stdio } = opts;
 
   let stdin  = process.stdin;
@@ -17,5 +17,3 @@ const withStdio = (opts={}) => {
 
   return { stdin, stdout, stderr };
 };
-
-module.exports = { withStdio };

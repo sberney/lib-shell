@@ -1,9 +1,9 @@
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-const { makePrefix, formatter } = require('./prefix');
-const { createConsole } = require('./create-console');
+import { makePrefix, formatter } from './prefix';
+import { createConsole } from './create-console';
 
-const withFailureBanner = (opts={}, operation) => {
+export const withFailureBanner = (opts={}, operation) => {
   const { plain, failureBanner, prefixedBanner } = opts;
   const solace = createConsole(opts);
 
@@ -26,5 +26,3 @@ const withFailureBanner = (opts={}, operation) => {
     return operation;
   }
 }
-
-module.exports = { withFailureBanner };

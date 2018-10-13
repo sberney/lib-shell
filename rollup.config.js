@@ -8,15 +8,23 @@ export default [
     output: {
       file: 'build/lib-shell.js',
       format: 'es',
-      sourcemap: true
+      //sourcemap: true
+    }
+  },
+  {
+    input: 'src/exec.js',
+    output: {
+      file: 'build/lib-shell.cjs.js',
+      format: 'cjs',
+      //sourcemap: true
     }
   },
   {
     input: 'src/exec.js',
     output: {
       file: 'build/lib-shell.es5.js',
-      format: 'es',
-      sourcemap: true
+      format: 'cjs',
+      //sourcemap: true
     },
     plugins: [
       resolve(),

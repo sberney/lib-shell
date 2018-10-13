@@ -1,5 +1,5 @@
 
-const withVerbose = (opts={}, operation) => {
+export const withVerbose = (opts={}, operation) => {
   const { verbose } = opts;
 
   if (verbose) {
@@ -12,5 +12,3 @@ const withVerbose = (opts={}, operation) => {
     return operation;
   }
 }
-
-module.exports = { withVerbose };

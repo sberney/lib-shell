@@ -1,16 +1,16 @@
-const path = require('path');
-const process = require('process');
-const { exec: nodeExec } = require('child_process');
+import path from 'path';
+import process from 'process';
+import { exec as nodeExec } from 'child_process';
 
-const omit = require('lodash/omit');
+import omit from 'lodash/omit';
 
-const { pipeToStdFactory } = require('./vanilla-pipe');
-const { injectPrefixing } = require('./prefix');
-const { tryCall } = require('./try');
-const { xbufferTransform } = require('./xbuffer-transform');
-const { withExit } = require('./with-exit');
-const { withFailureBanner } = require('./with-failure-banner');
-const { withVerbose } = require('./with-verbose');
+import { pipeToStdFactory } from './vanilla-pipe';
+import { injectPrefixing } from './prefix';
+import { tryCall } from './try';
+import { xbufferTransform } from './xbuffer-transform';
+import { withExit } from './with-exit';
+import { withFailureBanner } from './with-failure-banner';
+import { withVerbose } from './with-verbose';
 
 const str = tryCall('toString');
 
@@ -46,7 +46,7 @@ const transformOpts = (opts={}, transforms=loadedTransforms) => {
   }
 };
 
-const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
+export const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
   const { workingDirectory, plain } = transformOpts(opts);
 
   const currentDirectory = path.resolve('./');
@@ -103,7 +103,5 @@ const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject
   });
 }));
 
-const createExec = opts => (command, more) =>
+export const createExec = opts => (command, more) =>
   exec(command, Object.assign({}, opts, more));
-
-module.exports = { exec, createExec };

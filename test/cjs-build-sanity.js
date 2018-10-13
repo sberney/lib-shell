@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const { EOL } = require('os');
-const { exec, createExec } = require('../dist/lib-shell.es5.js');
+const { exec, createExec } = require('../dist/lib-shell.cjs.js');
 const concat = require('async-concat-stream');
 
 // one.js
 
-describe('es5 build', () => {
+describe('cjs build', () => {
   it('exports function exec', () => {
     expect(typeof exec).to.equal('function');
   });

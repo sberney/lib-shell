@@ -30,24 +30,21 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
     "async-concat-stream": "^1.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "denodeify": "^1.2.1",
     "eslint": "^5.3.0",
     "eslint-config-i-am-meticulous": "^11.0.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "memorystream": "^0.3.1",
     "mocha": "^5.2.0",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "systemjs-builder": "^0.16.13"
+    "rollup-plugin-node-resolve": "^3.4.0"
   },
   "scripts": {
     "babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
@@ -55,7 +52,7 @@
     "build": "gulp build",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
-    "test": "mocha",
+    "test": "mocha --require @babel/register",
     "ci": "yarn install && yarn cia",
     "cia": "yarn lint && yarn build && yarn test"
   }

@@ -1,6 +1,6 @@
 
 const defaultMaxBuffer = 200 * 1024;
-const xbufferTransform = (opts={}) => {
+export const xbufferTransform = (opts={}) => {
   const { xbuffer, maxBuffer } = opts;
 
   if (xbuffer && maxBuffer)
@@ -19,5 +19,3 @@ const xbufferTransform = (opts={}) => {
     return opts;
   }
 }
-
-module.exports = { xbufferTransform };

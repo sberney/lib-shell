@@ -1,22 +1,22 @@
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-const once = require('lodash/once');
+import once from 'lodash/once';
 
-const { infoAddender } = require('./info-addender');
-const { withStdio } = require('./with-stdio');
+import { infoAddender } from './info-addender';
+import { withStdio } from './with-stdio';
 
 
 const replaceEol = prefix => data =>
   data.replace(/\r\n|\r|\n/g, `${EOL}${prefix}`);
 
-const formatter = (prefix='') => {
+export const formatter = (prefix='') => {
   const replaceEol2 = replaceEol(prefix);
   return str => 
     `${prefix}${replaceEol2(str)}`;
 };
 
 
-const prefixedStream = prefix => (sourceStream, destStream) => {
+export const prefixedStream = prefix => (sourceStream, destStream) => {
   const prepend = once(() =>
     destStream.write(prefix));
   const replaceEol2 = replaceEol(prefix);
@@ -27,13 +27,13 @@ const prefixedStream = prefix => (sourceStream, destStream) => {
   });
 };
 
-const makePrefix = (opts={}) => {
+export const makePrefix = (opts={}) => {
   const { prefix } = opts;
   const defaultPrefix = 'shell';
   return `[${prefix || defaultPrefix}] `;
 };
 
-const injectPrefixing = (opts={}) => child => {
+export const injectPrefixing = (opts={}) => child => {
   const { stdout, stderr } = withStdio(opts);
 
   //const { info } = opts;  // todo: remove?
@@ -46,5 +46,3 @@ const injectPrefixing = (opts={}) => child => {
   pipe(child.stderr, stderr);
   appendInfo(child);
 };
-
-module.exports = { prefixedStream, makePrefix, injectPrefixing, formatter };

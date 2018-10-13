@@ -1,9 +1,9 @@
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-const { infoAddender } = require('./info-addender');
-const { withStdio } = require('./with-stdio');
+import { infoAddender } from './info-addender';
+import { withStdio } from './with-stdio';
 
-const pipeToStdFactory = (opts={}) => child => {
+export const pipeToStdFactory = (opts={}) => child => {
   const { stdout, stderr } = withStdio(opts);
   const formatInfo = message => `${EOL}${message}${EOL}`;
   const addendInfo = infoAddender(opts, formatInfo);
@@ -12,5 +12,3 @@ const pipeToStdFactory = (opts={}) => child => {
   child.stderr.on('data', data => stderr.write(data));
   addendInfo(child);
 };
-
-module.exports = { pipeToStdFactory };

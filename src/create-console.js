@@ -1,8 +1,8 @@
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-const { withStdio } = require('./with-stdio');
+import { withStdio } from './with-stdio';
 
-const createConsole = (opts={}) => {
+export const createConsole = (opts={}) => {
   const { stdout, stderr } = withStdio(opts);
 
   return {
@@ -16,5 +16,3 @@ const createConsole = (opts={}) => {
     }
   }
 }
-
-module.exports = { createConsole }

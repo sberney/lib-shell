@@ -1,6 +1,6 @@
-const process = require('process');
+import process from 'process';
 
-const withExit = (opts={}, operation) => {
+export const withExit = (opts={}, operation) => {
   const { exit } = opts;
 
   if (exit) {
@@ -12,5 +12,3 @@ const withExit = (opts={}, operation) => {
     return operation;
   }
 }
-
-module.exports = { withExit };

@@ -40,6 +40,7 @@
     "eslint-config-i-am-meticulous": "^11.0.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "merge-stream": "^1.0.1",
     "mocha": "^5.2.0",
     "rollup": "^0.66.6",
     "rollup-plugin-auto-external": "^2.0.0",

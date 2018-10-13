@@ -1,6 +1,5 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify-es';
 import autoExternal from 'rollup-plugin-auto-external';
 
@@ -18,7 +17,6 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs(),
       autoExternal(autoExternalOpts)
     ]
   },
@@ -30,7 +28,6 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs(),
       autoExternal(autoExternalOpts),
       uglify()
     ]
@@ -43,7 +40,6 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs(),
       autoExternal(autoExternalOpts),
       uglify()
     ]
@@ -56,11 +52,8 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs(),
       autoExternal(autoExternalOpts),
-      babel({
-        //exclude: 'node_modules/**'
-      }),
+      babel(),
       uglify()
     ]
   }

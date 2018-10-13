@@ -1,11 +1,13 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import uglify from 'rollup-plugin-uglify-es';
+import autoExternal from 'rollup-plugin-auto-external';
 
-const plugins = [
-  resolve(),
-  commonjs()
-];
+const autoExternalOpts = {
+  builtins: true,
+  dependencies: false
+};
 
 export default [
   {
@@ -14,26 +16,52 @@ export default [
       file: 'build/lib-shell.js',
       format: 'es',
     },
-    plugins
+    plugins: [
+      resolve(),
+      commonjs(),
+      autoExternal(autoExternalOpts)
+    ]
   },
   {
     input: 'src/exec.js',
     output: {
-      file: 'build/lib-shell.cjs.js',
-      format: 'cjs',
+      file: 'build/lib-shell.min.js',
+      format: 'es',
     },
-    plugins
+    plugins: [
+      resolve(),
+      commonjs(),
+      autoExternal(autoExternalOpts),
+      uglify()
+    ]
   },
   {
     input: 'src/exec.js',
     output: {
-      file: 'build/lib-shell.es5.js',
+      file: 'build/lib-shell.cjs.min.js',
       format: 'cjs',
     },
-    plugins: plugins.concat([
+    plugins: [
+      resolve(),
+      commonjs(),
+      autoExternal(autoExternalOpts),
+      uglify()
+    ]
+  },
+  {
+    input: 'src/exec.js',
+    output: {
+      file: 'build/lib-shell.es5.min.js',
+      format: 'cjs',
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      autoExternal(autoExternalOpts),
       babel({
         //exclude: 'node_modules/**'
-      })
-    ])
+      }),
+      uglify()
+    ]
   }
 ]

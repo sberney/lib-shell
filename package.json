@@ -45,6 +45,7 @@
     "jest": "^23.6.0",
     "merge-stream": "^1.0.1",
     "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.5",
     "rollup": "^0.66.6",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-babel": "^4.0.3",
@@ -52,16 +53,15 @@
     "rollup-plugin-uglify-es": "^0.0.1"
   },
   "scripts": {
-    "tlc-babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
-    "rollup": "rollup -c --config",
-    "tlc-build": "yarn gulp",
-    "gulp": "gulp build",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
-    "test2": "mocha --require @babel/register",
+    "yarn": "yarn install --non-interactive",
+    "rollup": "rollup -c --config",
+    "gulp": "gulp build",
+    "build": "run-s rollup gulp",
     "test": "jest",
-    "build": "yarn rollup && yarn gulp",
-    "ci": "yarn install && yarn cia",
-    "cia": "yarn lint && yarn build && yarn test"
+    "finish": "run-s build test",
+    "ci": "yarn yarn && yarn cia",
+    "cia": "run-s lint rollup gulp test"
   }
 }

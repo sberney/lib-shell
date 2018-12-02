@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { EOL } = require('os');
-const { exec } = require('../polyfill-index');
+const { exec } = require('../index');
 const concat = require('async-concat-stream');
 
 // eight.js

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { EOL } = require('os');
-const { createExec } = require('../polyfill-index');
+const { createExec } = require('../index');
 const concat = require('async-concat-stream');
 
 // five.js

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { EOL } from 'os';
 import concat from 'async-concat-stream';
-import { exec } from '../src/exec';
+import { exec } from '../index';
 
 // one.js
 

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const concat = require('async-concat-stream');
-const { exec } = require('../polyfill-index');
+const { exec } = require('../index');
 const { withStdio } = require('../src/with-stdio.js');
 
 describe('stdio', () => {

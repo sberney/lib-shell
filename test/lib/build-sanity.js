@@ -8,8 +8,8 @@ const createBuildSanityTest = ({ buildName, requirePath }) => {
   describe(buildName, () => {
 
     let LibShell;
-    before(() => {
-      LibShell = require(path.resolve('..', requirePath));
+    beforeAll(() => {
+      LibShell = require(path.resolve('./test', requirePath));
     });
 
     it('exports function exec', () => {

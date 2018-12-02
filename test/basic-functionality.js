@@ -1,12 +1,12 @@
-const { expect } = require('chai');
-const { EOL } = require('os');
-const concat = require('async-concat-stream');
-const { exec } = require('../polyfill-index');
+import { expect } from 'chai';
+import { EOL } from 'os';
+import concat from 'async-concat-stream';
+import { exec } from '../src/exec';
 
 // one.js
 
 describe('basic functionality', () => {
-  it('prefixes, addends, and execs', async () => {
+  test('prefixes, addends, and execs', async () => {
     const stream = concat();
 
     await exec('echo "hello world!"', {

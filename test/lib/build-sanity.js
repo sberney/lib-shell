@@ -3,10 +3,6 @@ const path = require('path');
 const { EOL } = require('os');
 const concat = require('async-concat-stream');
 
-//require('@babel/register')({
-//  ignore: []
-//});
-
 const createBuildSanityTest = ({ buildName, requirePath }) => {
 
   describe(buildName, () => {

@@ -2,3 +2,4 @@ node_modules
 build
 jspm_packages
 yarn-error.log
+temp/

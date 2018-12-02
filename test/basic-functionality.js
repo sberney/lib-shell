@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { EOL } = require('os');
-const { exec } = require('../polyfill-index');
 const concat = require('async-concat-stream');
+const { exec } = require('../polyfill-index');
 
 // one.js
 

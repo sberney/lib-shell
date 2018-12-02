@@ -51,11 +51,13 @@
   "scripts": {
     "tlc-babel": "babel --presets es2015 build/lib-shell.js -o build/lib-shell.es5.js",
     "rollup": "rollup -c --config",
-    "tlc-build": "gulp build",
+    "tlc-build": "yarn gulp",
+    "gulp": "gulp build",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "test2": "mocha --require @babel/register",
     "test": "mocha --require custom-babel-register.js",
+    "build": "yarn rollup && yarn gulp",
     "ci": "yarn install && yarn cia",
     "cia": "yarn lint && yarn build && yarn test"
   }

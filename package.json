@@ -2,7 +2,7 @@
   "name": "lib-shell",
   "version": "1.1.0",
   "description": "Use the command line from JavaScript. Write node-based build scripts for your project more easierly",
-  "main": "index.js",
+  "main": "dist/lib-shell.es5.min.js",
   "author": {
     "name": "Samuel Berney",
     "url": "http://samuelberney.com/"

@@ -127,6 +127,11 @@ const sequence = () =>
 // [four-b] shell exited, code 0.
 ```
 
+*Note, just like parallel processes which print only part of a line at a time,
+the current implementation has occasional newline issues, where labels are mismatched.
+`lib-shell` will still work well in these circumstances, in part for which it was designed.
+A better ordering implementation is in the works.*
+
 ## Exit codes, errors, and workflow
 
 Perhaps you need more than just a catch handler at the end of a promise chain. Perhaps you need the exit code. Or some reason, any reason, why your script didn't work.
@@ -259,7 +264,7 @@ Regardless, the two options are incompatible with each other, and if you try to 
 
 ### Latest Node
 
-"Latest Node" usage requires `node >= 8.11.1`.
+"Latest Node" usage requires `node >= 10.14.1`.
 
 ```bash
 npm install lib-shell
@@ -279,7 +284,7 @@ npm install lib-shell
 ```
 
 ```js
-var shell = require('lib-shell/dist/lib-shell.es5.js');
+var shell = require('lib-shell/dist/lib-shell.es5.min.js');
 shell.exec('echo "hello world!"');
 ```
 
@@ -302,11 +307,17 @@ yarn build
 Puts the output in `dist/`.
 
 
+# Links
+
+[npm](https://www.npmjs.com/package/lib-shell)
+
+
 ## TODOs
 
 * discuss colorization
   * Basically, things you run auto-detect their environment. Often the program you're running has a `--ansi` option or `--color` or something like that. If it doesn't, it's not super clear what to do about it.
   * `child_process.spawn` has a `stdio` option that `exec` does not. Perhaps we should look into that.
+* better multiplexing
 
 ## License
 

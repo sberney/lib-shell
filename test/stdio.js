@@ -28,7 +28,6 @@ describe('stdio mock streamtest', () => {
 
     await exec(echo('hello world!'), {
       stdio: {
-        //stdout: process.stdout,
         stdout: stream,
         stderr: process.stderr,
         stdin: process.stdin

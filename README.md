@@ -339,7 +339,36 @@ const value = await concatStream.promise;
 
 ### Using stdin
 
-Right now, stdin isn't supported. If you supply an argument, it will be ignored.
+By default, the stdin of the calling environment is piped to the subprocess.
+In a console, this means you can interact with the subprocess. This is equivalent
+to calling `process.stdin.pipe(child_process.stdin);`.
+However, you can disable stdin by setting its value explicitly to `null`.
+Alternatively, you can specify a stream value for stdin, programatically simulating stdin.
+
+Below, we disable stdin:
+
+```js
+const { createExec } = require('lib-shell');
+const exec = createExec({
+  stdio: { stdin: null }  // disable stdin
+});
+
+await exec('echo "hello world!"');
+```
+
+This time, we create a stdin we explicitly control:
+
+```js
+const { exec } = require('lib-shell');
+import { PassThrough } from 'stream';
+
+const stream = new PassThrough;
+await exec('read -t 1 -n 1', {
+  stdio: { stdin: stream }  // disable stdin
+});
+
+stream.write('\n');
+```
 
 
 ## Options
@@ -435,6 +464,20 @@ yarn build
 
 Puts the output in `dist/`.
 
+
+## Executing the examples
+
+Several examples are contained in the `examples/` directory.
+Most of these were developed to run on windows but will likely run on other system too.
+The stdin example is designed to run on linux.
+
+You must use `node -r esm` to execute a file, due to the use of `import` and `export`
+throughout the source.
+
+```bash
+cd examples/
+node -r esm waiting-for-keypress.js
+```
 
 # Links
 

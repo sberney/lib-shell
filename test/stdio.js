@@ -9,14 +9,14 @@ describe('stdio', () => {
   test('transforms an array', () => {
     const one = withStdio({
       stdio: ['one', 'two', 'three']
-    });
+    }, false);
     const two = withStdio({
       stdio: {
         stdin: 'one',
         stdout: 'two',
         stderr: 'three'
       }
-    });
+    }, false);
 
     expect(one).to.deep.equal(two);
   });

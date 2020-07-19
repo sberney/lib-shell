@@ -3,12 +3,14 @@ import { exec } from '../index';
 import { stdin } from 'process';
 
 
+const plain = false;
+
 const main = async () => {
 
   // First - check out default functionality
   console.log('using default stdin -- process.stdin');
   await exec('./waiting-for-keypress.sh', {
-    plain: true,
+    plain,
     info: false,
     noTrailingNewline: true
   });
@@ -23,7 +25,7 @@ const main = async () => {
   }, 11 * 1000);
 
   await exec('./waiting-for-keypress.sh', {
-    plain: true,
+    plain,
     info: false,
     noTrailingNewline: true,
     stdio: { stdin: stream }
@@ -32,7 +34,7 @@ const main = async () => {
   // Thirdly - validate that setting null means stdin just can't occur at all
   console.log('\nusing null stdin -- this will never complete');
   await exec('./waiting-for-keypress.sh', {
-    plain: true,
+    plain,
     info: false,
     noTrailingNewline: true,
     stdio: { stdin: null }

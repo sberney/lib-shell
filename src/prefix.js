@@ -55,13 +55,16 @@ export const makePrefix = (opts={}) => {
 };
 
 export const injectPrefixing = (opts={}) => child => {
-  const { stdout, stderr } = withStdio(opts);
+  const { stdout, stderr, stdin } = withStdio(opts);
 
   //const { info } = opts;  // todo: remove?
   const prefix = makePrefix(opts);
   const pipe = prefixedStream(prefix);
   const formatInfo = message => `${EOL}${prefix}${message}${EOL}`;
   const appendInfo = infoAddender(opts, formatInfo);
+
+  if (stdin)
+    stdin.pipe(child.stdin);
 
   pipe(child.stdout, stdout);
   pipe(child.stderr, stderr);

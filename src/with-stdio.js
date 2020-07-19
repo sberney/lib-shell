@@ -18,7 +18,7 @@ const validateStream = (streamName, stream) => {
     throw new Error(`specified ${streamName} does not have a valid write() function.`);
 };
 
-export const withStdio = (opts={}) => {
+export const withStdio = (opts={}, validate=true) => {
   const { stdio } = opts;
 
   let stdin  = process.stdin;
@@ -34,9 +34,11 @@ export const withStdio = (opts={}) => {
   }
 
   // Fail fast, notify the user if they've got a bad setup.
-  validateStream('stdout', stdout);
-  validateStream('stderr', stderr);
-  validateStream('stdin', stdin);
+  if (validate) {
+    validateStream('stdout', stdout);
+    validateStream('stderr', stderr);
+    validateStream('stdin', stdin);
+  }
 
   return { stdin, stdout, stderr };
 };

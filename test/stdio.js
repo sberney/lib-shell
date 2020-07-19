@@ -1,3 +1,4 @@
+const process = require('process');
 const { expect } = require('chai');
 const concat = require('async-concat-stream');
 const { PassThrough } = require('stream');

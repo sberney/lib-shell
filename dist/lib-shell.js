@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 lodash license (MIT)
-Copyright JS Foundation and other contributors <https://js.foundation/>
+Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
 
 Based on Underscore.js, copyright Jeremy Ashkenas,
 DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
@@ -62,10 +62,10 @@ licenses; we recommend you read them, as their terms may differ from the
 terms above.
 
 **/
-import process from 'process';
-import { EOL } from 'os';
 import path from 'path';
-import { exec } from 'child_process';
+import process from 'process';
+import { exec as exec$1 } from 'child_process';
+import { EOL } from 'os';
 
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
@@ -358,10 +358,11 @@ function getRawTag(value) {
 
   try {
     value[symToStringTag] = undefined;
+    var unmasked = true;
   } catch (e) {}
 
   var result = nativeObjectToString.call(value);
-  {
+  if (unmasked) {
     if (isOwn) {
       value[symToStringTag] = tag;
     } else {
@@ -2300,16 +2301,10 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
     value.forEach(function(subValue) {
       result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
     });
-
-    return result;
-  }
-
-  if (isMap(value)) {
+  } else if (isMap(value)) {
     value.forEach(function(subValue, key) {
       result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
     });
-
-    return result;
   }
 
   var keysFunc = isFull
@@ -2611,14 +2606,14 @@ function toKey(value) {
  * @param {Array|string} path The path of the property to get.
  * @returns {*} Returns the resolved value.
  */
-function baseGet(object, path$$1) {
-  path$$1 = castPath(path$$1, object);
+function baseGet(object, path) {
+  path = castPath(path, object);
 
   var index = 0,
-      length = path$$1.length;
+      length = path.length;
 
   while (object != null && index < length) {
-    object = object[toKey(path$$1[index++])];
+    object = object[toKey(path[index++])];
   }
   return (index && index == length) ? object : undefined;
 }
@@ -2661,8 +2656,8 @@ function baseSlice(array, start, end) {
  * @param {Array} path The path to get the parent value of.
  * @returns {*} Returns the parent value.
  */
-function parent(object, path$$1) {
-  return path$$1.length < 2 ? object : baseGet(object, baseSlice(path$$1, 0, -1));
+function parent(object, path) {
+  return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
 }
 
 /**
@@ -2673,10 +2668,10 @@ function parent(object, path$$1) {
  * @param {Array|string} path The property path to unset.
  * @returns {boolean} Returns `true` if the property is deleted, else `false`.
  */
-function baseUnset(object, path$$1) {
-  path$$1 = castPath(path$$1, object);
-  object = parent(object, path$$1);
-  return object == null || delete object[toKey(last(path$$1))];
+function baseUnset(object, path) {
+  path = castPath(path, object);
+  object = parent(object, path);
+  return object == null || delete object[toKey(last(path))];
 }
 
 /** `Object#toString` result references. */
@@ -3020,10 +3015,10 @@ var omit = flatRest(function(object, paths) {
     return result;
   }
   var isDeep = false;
-  paths = arrayMap(paths, function(path$$1) {
-    path$$1 = castPath(path$$1, object);
-    isDeep || (isDeep = path$$1.length > 1);
-    return path$$1;
+  paths = arrayMap(paths, function(path) {
+    path = castPath(path, object);
+    isDeep || (isDeep = path.length > 1);
+    return path;
   });
   copyObject(object, getAllKeysIn(object), result);
   if (isDeep) {
@@ -3469,7 +3464,7 @@ const transformOpts = (opts={}, transforms=loadedTransforms) => {
   }
 };
 
-const exec$1 = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
+const exec = (command, opts={}) => withAddins(opts, new Promise((resolve, reject) => {
   const { workingDirectory, plain } = transformOpts(opts);
 
   const currentDirectory = path.resolve('./');
@@ -3486,7 +3481,7 @@ const exec$1 = (command, opts={}) => withAddins(opts, new Promise((resolve, reje
     }
   };
 
-  const child = exec(command, Object.assign({
+  const child = exec$1(command, Object.assign({
     shell: true
   }, omit(opts, [
     'workingDirectory',
@@ -3527,6 +3522,6 @@ const exec$1 = (command, opts={}) => withAddins(opts, new Promise((resolve, reje
 }));
 
 const createExec = opts => (command, more) =>
-  exec$1(command, Object.assign({}, opts, more));
+  exec(command, Object.assign({}, opts, more));
 
-export { exec$1 as exec, createExec };
+export { createExec, exec };

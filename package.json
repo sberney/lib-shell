@@ -40,6 +40,7 @@
     "denodeify": "^1.2.1",
     "eslint": "^7.5.0",
     "eslint-config-i-am-meticulous": "^12.0.0",
+    "esm": "^3.2.25",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "jest": "^26.1.0",

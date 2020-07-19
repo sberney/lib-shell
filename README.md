@@ -1,3 +1,5 @@
+![Node.js CI](https://github.com/sberney/lib-shell/workflows/Node.js%20CI/badge.svg)
+
 # `lib-shell`
 
 Do you want to use JavaScript to automate your build process? Or does your build process involve running ... errm ... *anything* other than JavaScript? ...
@@ -6,18 +8,41 @@ Do you want to use JavaScript to automate your build process? Or does your build
 
 -------
 
-Of course, you *can* use node's `exec` and `spawn` (this is the *correct* approach), but they are annoying. Why did they even bother writing them?
+Of course, you *can* use node's `exec` and `spawn` (this is the *correct* approach) to run command line scripts,
+but they are annoying. Why did they even bother writing them? To be clear, the problem with these libraries is that
+their API isn't very user friendly.
 
 ## Why lib-shell
 
 ### Simplicity and robustness
 
-Using `lib-shell`, you don't need to know anything at all about those boring built-in utilities, unless you really want to.
+Using `lib-shell`, you don't need to know anything at all about those inconvenient built-in utilities,
+unless you really want to. `lib-shell` exports an `exec` function which low-cerimoniously executes whatever command
+you pass it, and returns a promise which completes when the command completes.
+
+`lib-shell` is an API built around the underlying `exec` and `spawn` commands. It's platform agnostic: it runs on
+windows, linux, and mac. It comes with multiple built versions of the code targeting various versions of node.js.
+
+#### Errors
+
+If something goes wrong, `lib-shell` returns a rejected promise. This is great, because it let's you respond to
+the success and failure of your commands.
+
+Unfortunately, if something goes wrong, the rejected promise doesn't contain text of the error,
+because it's hard to determine what the text of the error actually is.
+A lot of programs print their error messages to stdout instead of stderr, and a lot of programs print things that
+aren't critical errors to stderr. So a record of stderr wouldn't be universally helpful. And a printout of the
+entirety of stdout and stderr wouldn't be especially useful in most simple scenarios.
+
+`lib-shell` pipes stdout and stderr messages without keeping any information about their contents. By default,
+these are piped to the calling process, eg to the console where you can see them and inspect them with your eyes.
+However you can pipe to something else, and keep a record of every piece of information, and then pipe the content
+on to the console, if you really want the body of the output to scan for keywords and failure reasons.
 
 
 ### Build Sequencing
 
-Those built-in tools don't even use promises. Nobody wants to know about `exit` events. They want `Promise`'s! They want to do this:
+Those node built-in don't even use promises. Nobody wants to know about `exit` events. They want `Promise`'s! They want to do this:
 
 ```js
 const build = () =>
@@ -27,6 +52,8 @@ const build = () =>
   then(() => finishUp()).
   catch(err => figureItOut());
 ```
+
+Now you can! All without writing any code.
 
 
 ## Examples
@@ -127,10 +154,37 @@ const sequence = () =>
 // [four-b] shell exited, code 0.
 ```
 
-*Note, just like parallel processes which print only part of a line at a time,
+*Note,* parallel processing can write mixed up junk to the command line.
+In general, `lib-shell` will print out intelligent output, although usually
+it looks more like the following:
+
+```js
+// [one] operation1
+// [three] operation3
+// [two] operation2
+// [two]
+// [four-b] operation4b
+// [four-a] operation4a
+// [four-a]
+// [two] shell exited, code 0.
+// [one]
+// [four-a] shell exited, code 0.
+// [four-b] shell exited, code 0.
+// [one] shell exited, code 0.
+// [three]
+// [four-b]
+// [three] shell exited, code 0.
+```
+
+Which is totally fine and still intelligible. In fact, this is pretty much the desired
+way for output to be printed in most cases -- in the order that the events occurred.
+
+***However**, just like parallel processes which print only part of a line at a time,
 the current implementation has occasional newline issues, where labels are mismatched.
-`lib-shell` will still work well in these circumstances, in part for which it was designed.
-A better ordering implementation is in the works.*
+`lib-shell` will still work well in these circumstances, in part for which it was designed.*
+
+One interesting possibility for a feature idea is support for buffering for this multiplexing scenario.
+
 
 ## Exit codes, errors, and workflow
 

@@ -31,6 +31,4 @@ gulp.task('distribute', () => {
 });
 
 
-gulp.task('build', [
-  'distribute',
-]);
+gulp.task('build', gulp.series('distribute'));

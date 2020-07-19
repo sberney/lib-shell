@@ -12,15 +12,15 @@ const createBuildSanityTest = ({ buildName, requirePath }) => {
       LibShell = require(path.resolve('./test', requirePath));
     });
 
-    it('exports function exec', () => {
+    test('exports function exec', () => {
       expect(typeof LibShell.exec).to.equal('function');
     });
 
-    it('exports function createExec', () => {
+    test('exports function createExec', () => {
       expect(typeof LibShell.createExec).to.equal('function');
     });
 
-    it('exec performs basic functionality', async () => {
+    test('exec performs basic functionality', async () => {
       const stream = concat();
 
       await LibShell.exec('echo "hello world!"', {

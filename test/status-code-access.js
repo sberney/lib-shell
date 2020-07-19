@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // seven.js
 
 describe('status code access', () => {
-  it('exposes the correct status code', async () => {
+  test('exposes the correct status code', async () => {
 
     const result = await exec('exit 1', {
       stdio: { stdout: concat() }

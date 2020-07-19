@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // twelve.js
 
 describe('xbuffer with maxBuffer', () => {
-  it("doesn't allow both options simultaneously", async () => {
+  test("doesn't allow both options simultaneously", async () => {
     const stream = concat();
 
     const result = await exec('echo "hello world!"', {

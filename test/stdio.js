@@ -4,7 +4,7 @@ const { exec } = require('../index');
 const { withStdio } = require('../src/with-stdio.js');
 
 describe('stdio', () => {
-  it('transforms an array', () => {
+  test('transforms an array', () => {
     const one = withStdio({
       stdio: ['one', 'two', 'three']
     });
@@ -21,7 +21,7 @@ describe('stdio', () => {
 });
 
 describe('stdio mock streamtest', () => {
-  it('does what I want', async () => {
+  test('does what I want', async () => {
     const stream = concat();
 
     await exec('echo "hello world"', {
@@ -43,7 +43,7 @@ describe('stdio mock streamtest', () => {
 
 //describe('stdio argument', () => {
 //
-//  it('it accepts an array', () => {
+//  test('it accepts an array', () => {
 //
 //    //let emitter = new Emitter;
 //    exec('echo "hello world"', {

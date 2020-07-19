@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // two.js
 
 describe('plain: true', () => {
-  it('does not have prefixed output', async () => {
+  test('does not have prefixed output', async () => {
     const stream = concat();
 
     await exec('echo "hello world!"', {

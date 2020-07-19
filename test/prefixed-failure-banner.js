@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // eleven.js
 
 describe('prefixedBanner: true', () => {
-  it('prefixes the failure banner', async () => {
+  test('prefixes the failure banner', async () => {
     const stream = concat();
 
     await exec('exit 1', {

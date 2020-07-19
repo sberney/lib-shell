@@ -56,7 +56,7 @@
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "yarn": "yarn install --non-interactive",
-    "rollup": "rollup -c --config",
+    "rollup": "rollup --config",
     "gulp": "gulp build",
     "build": "run-s rollup gulp",
     "test": "jest",

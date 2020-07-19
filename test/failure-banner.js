@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // nine.js
 
 describe('failure banner', () => {
-  it('prints the failure banner', async () => {
+  test('prints the failure banner', async () => {
     const stream = concat();
 
     await exec('exit 1', {

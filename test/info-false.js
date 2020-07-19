@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // three.js
 
 describe('info: false', () => {
-  it('does not addend the exit status', async () => {
+  test('does not addend the exit status', async () => {
     const stream = concat();
 
     await exec('echo "hello world!"', {

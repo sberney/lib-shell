@@ -6,7 +6,7 @@ const concat = require('async-concat-stream');
 // five.js
 
 describe('createExec', () => {
-  it('automatically applies creation options', async () => {
+  test('automatically applies creation options', async () => {
     const stream = concat();
 
     const exec = createExec({
@@ -27,7 +27,7 @@ describe('createExec', () => {
     );
   });
 
-  it('allows override of creation options', async () => {
+  test('allows override of creation options', async () => {
     const stream = concat();
 
     const exec = createExec({

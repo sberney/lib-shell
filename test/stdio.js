@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const concat = require('async-concat-stream');
+const { PassThrough } = require('stream');
 const { exec } = require('../index');
 const { withStdio } = require('../src/with-stdio.js');
 const echo = require('./lib/echo');
@@ -66,3 +67,28 @@ describe('stdio mock streamtest', () => {
 //  });
 //
 //});
+
+describe('stdio fork pipe', () => {
+  test('pipes to two streams', async () => {
+    const stream1 = concat();
+    const stream2 = concat();
+
+    const stream = new PassThrough;
+    stream.pipe(stream1);
+    stream.pipe(stream2);
+
+    await exec(echo('hello world!'), {
+      stdio: {
+        stdout: stream
+      },
+    });
+
+    stream1.end();
+    stream2.end();
+    const string1 = await stream1.promise;
+    const string2 = await stream2.promise;
+
+    expect(string1).to.match(/hello world/);
+    expect(string1.toString()).to.equal(string2.toString());
+  });
+});

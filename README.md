@@ -267,6 +267,81 @@ If that doesn't work, email tech@ITsupport.utopiacorp.net. `
 //
 ```
 
+## Piping stdout and stderr
+
+Your command gets its own dedicated stdout and stderr instances.
+By default, these are piped to `process.stdout` and `process.stderr`,
+that is the stdout and stderr of the calling process: in the case of
+command line execution, the console.
+
+You can redirect one or both of these pipes using the `stdio` option.
+The type of object you can specify for `stdout` and `stderr` is a `Stream`;
+for reference, `process.stdout` is a stream.
+
+To collect the output, you can make use of the `async-concat-stream` library,
+so you would be able to redirect the output to a string like so:
+
+```js
+const concat = require('async-concat-stream');
+const { exec } = require('lib-shell');
+const stream = concat();
+
+await exec('echo "hello world!"', {
+  stdio: {
+    stdout: stream,
+    stderr: process.stderr,  // this is the same as omitting this property
+    stdin: process.stdin     // this is the same as omitting this property
+  }
+});
+
+stream.end();
+const value = await stream.promise;
+
+// value is "hello world!"
+```
+
+You can also use the alternate format `[stdin, stdout, stderr]`,
+instead of the map format `{ stdin, stdout, stderr }`:
+
+```js
+await exec('echo "hello world!"', {
+  stdio: [ stdin, stdout, stderr ]
+});
+```
+
+### Forking the output
+
+Want to print to the command line and to another stream, like `async-concat-stream`?
+This is straight-forward. Just pipe to an intermediary stream, like the built-in `PassThrough`,
+and then pipe that to your two other streams. For example:
+
+```js
+const { exec } = require('lib-shell');
+const { PassThrough } = require('stream');
+const concat = require('async-concat-stream');
+const process = require('process');
+
+const concatStream = concat();
+const stream = new PassThrough;
+
+stream.pipe(concatStream);
+stream.pipe(process.stdout);
+
+await exec(echo('hello world!'), {
+  stdio: { stdout: stream }
+});
+
+concatStream.end();
+const value = await concatStream.promise;
+
+// output is contained in value, and has been printed to stdout
+```
+
+### Using stdin
+
+Right now, stdin isn't supported. If you supply an argument, it will be ignored.
+
+
 ## Options
 
 ### All Options

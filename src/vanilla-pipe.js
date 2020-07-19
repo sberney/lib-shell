@@ -8,10 +8,11 @@ export const pipeToStdFactory = (opts={}) => child => {
   const formatInfo = message => `${EOL}${message}${EOL}`;
   const addendInfo = infoAddender(opts, formatInfo);
 
+  child.stdout.on('data', data => stdout && stdout.write(data));
+  child.stderr.on('data', data => stderr && stderr.write(data));
+
   if (stdin)
     stdin.pipe(child.stdin);
 
-  child.stdout.on('data', data => stdout && stdout.write(data));
-  child.stderr.on('data', data => stderr && stderr.write(data));
   addendInfo(child);
 };

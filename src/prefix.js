@@ -63,10 +63,11 @@ export const injectPrefixing = (opts={}) => child => {
   const formatInfo = message => `${EOL}${prefix}${message}${EOL}`;
   const appendInfo = infoAddender(opts, formatInfo);
 
+  pipe(child.stdout, stdout);
+  pipe(child.stderr, stderr);
+
   if (stdin)
     stdin.pipe(child.stdin);
 
-  pipe(child.stdout, stdout);
-  pipe(child.stderr, stderr);
   appendInfo(child);
 };

@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const { EOL } = require('os');
 const { createExec } = require('../index');
 const concat = require('async-concat-stream');
+const echo = require('./lib/echo');
 
 // five.js
 
@@ -14,14 +15,14 @@ describe('createExec', () => {
       info: false
     });
 
-    await exec('echo "hello world!"', {
+    await exec(echo('hello world!'), {
       stdio: { stdout: stream }
     });
     stream.end();
 
     expect(await stream.promise).to.equal(
       [
-        '"hello world!"',
+        'hello world!',
         ''
       ].join(EOL)
     );
@@ -35,7 +36,7 @@ describe('createExec', () => {
       info: false
     });
 
-    await exec('echo "hello world!"', {
+    await exec(echo('hello world!'), {
       stdio: { stdout: stream },
       info: true
     });
@@ -43,7 +44,7 @@ describe('createExec', () => {
 
     expect(await stream.promise).to.equal(
       [
-        '"hello world!"',
+        'hello world!',
         '',
         'shell exited, code 0.',
         ''

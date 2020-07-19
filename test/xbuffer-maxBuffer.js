@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const { EOL } = require('os');
 const { exec } = require('../index');
 const concat = require('async-concat-stream');
+const echo = require('./lib/echo');
 
 // twelve.js
 
@@ -9,7 +10,7 @@ describe('xbuffer with maxBuffer', () => {
   test("doesn't allow both options simultaneously", async () => {
     const stream = concat();
 
-    const result = await exec('echo "hello world!"', {
+    const result = await exec(echo('hello world!'), {
       xbuffer: 0.01,
       maxBuffer: 10,
       stdio: { stdout: stream, stderr: stream }

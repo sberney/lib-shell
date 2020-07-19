@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const path = require('path');
 const { EOL } = require('os');
 const concat = require('async-concat-stream');
+const echo = require('./echo');
 
 const createBuildSanityTest = ({ buildName, requirePath }) => {
 
@@ -23,14 +24,14 @@ const createBuildSanityTest = ({ buildName, requirePath }) => {
     test('exec performs basic functionality', async () => {
       const stream = concat();
 
-      await LibShell.exec('echo "hello world!"', {
+      await LibShell.exec(echo('hello world!'), {
         stdio: { stdout: stream }
       });
       stream.end();
 
       expect(await stream.promise).to.equal(
         [
-          '[shell] "hello world!"',
+          '[shell] hello world!',
           '[shell] ',
           '[shell] shell exited, code 0.',
           ''

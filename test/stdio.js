@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const concat = require('async-concat-stream');
 const { exec } = require('../index');
 const { withStdio } = require('../src/with-stdio.js');
+const echo = require('./lib/echo');
 
 describe('stdio', () => {
   test('transforms an array', () => {
@@ -24,7 +25,7 @@ describe('stdio mock streamtest', () => {
   test('does what I want', async () => {
     const stream = concat();
 
-    await exec('echo "hello world"', {
+    await exec(echo('hello world!'), {
       stdio: {
         //stdout: process.stdout,
         stdout: stream,
@@ -46,7 +47,7 @@ describe('stdio mock streamtest', () => {
 //  test('it accepts an array', () => {
 //
 //    //let emitter = new Emitter;
-//    exec('echo "hello world"', {
+//    exec(echo('hello world!'), {
 //      stdio: {
 //        stdin: 'in',
 //        stdout: 'out',
